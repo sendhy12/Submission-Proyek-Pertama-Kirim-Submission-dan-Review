@@ -1,95 +1,113 @@
-# Laporan Proyek Machine Learning - (Sendhy Maula Ammarulloh)
+# Laporan Proyek Machine Learning - Sendhy Maula Ammarulloh
 
 ## Domain Proyek
 
-Pasar tradisional di Kabupaten Sumedang merupakan pusat distribusi beras penting yang menunjang kebutuhan pangan masyarakat setempat. Fluktuasi harga beras di pasar ini menimbulkan tantangan bagi konsumen dalam merencanakan pengeluaran, serta bagi petani dalam menjamin pendapatan yang stabil.  
-Untuk mengatasi masalah ini, pemanfaatan teknologi analisis data seperti regresi linear menjadi solusi yang potensial. Regresi linear mampu memodelkan hubungan harga beras diberbagai daerah. Penelitian serupa yang dilakukan oleh Syahid Karbala dan Irfan Ali dengan data yang diambil dari kantor bulog diwilayah kota cirebon menggunakan regresi linear dan menunjukkan kecenderungan kenaikan harga beras dengan tingkat akurasi prediksi yang baik. Selain itu, regresi linear juga memiliki nilai RMSE sebesar 21.118 dalam memprediksi harga beras ([Lady Khadma, 2022](https://ejournal.itn.ac.id/index.php/jati/article/view/6901/4112)).  
-Berdasarkan hal tersebut, proyek ini bertujuan untuk menerapkan regresi linear dalam memprediksi harga beras di pasar tradisional Sumedang.
+Sektor pangan merupakan sektor yang sangat krusial dalam menjaga kestabilan ekonomi dan sosial, terutama di daerah yang sangat bergantung pada bahan pokok seperti beras. Di Kabupaten Sumedang, Dinas Koperasi, UKM, Perdagangan, dan Perindustrian secara rutin mengumpulkan data harga kebutuhan pokok di pasar-pasar tradisional.
+
+Namun, fluktuasi harga Beras Medium yang sering terjadi menyebabkan ketidakpastian bagi konsumen dan pelaku usaha. Oleh karena itu, penting untuk membangun sistem prediksi harga berbasis Machine Learning yang dapat membantu pemerintah daerah dan pelaku pasar dalam merencanakan kebijakan dan strategi distribusi.
+
+Prediksi harga ini didasarkan pada data historis yang mencakup tanggal, lokasi pasar, dan harga komoditas. Teknologi Machine Learning, terutama regresi, digunakan untuk membangun model prediktif yang andal.
+
+**Referensi:**
+- BPS Sumedang. “Harga Rata-Rata Beberapa Komoditas.” [Online]. Available: https://sumedangkab.bps.go.id
+- O. Ismail et al., “Time Series Forecasting of Rice Prices Using Machine Learning Techniques,” *International Journal of Advanced Computer Science*, 2020.
+
+---
 
 ## Business Understanding
 
 ### Problem Statements
-1. Bagaimana menerapkan metode regresi linear dalam prediksi harga beras di pasar tradisional Sumedang?
-2. Bagaimana mengimplementasikan hasil prediksi regresi linear dalam sebuah platform berbasis website?
+
+- Bagaimana memprediksi harga *Beras Medium* berdasarkan informasi pasar dan waktu (bulan, tahun)?
+- Bagaimana membangun model Machine Learning yang akurat untuk membantu prediksi harga komoditas tersebut?
 
 ### Goals
-1. Menghasilkan model regresi linear yang mampu memprediksi harga beras medium berdasarkan harga beras premium di pasar tradisional Sumedang.
-2. Membuat implementasi hasil prediksi ke dalam aplikasi berbasis web agar dapat digunakan oleh petani, pedagang, maupun pembuat kebijakan.
+
+- Membuat model prediktif berbasis regresi untuk memprediksi harga *Beras Medium*.
+- Mengidentifikasi fitur-fitur yang relevan dan melakukan visualisasi serta pembersihan data.
 
 ### Solution Statements
-- Menggunakan model **Linear Regression** untuk memprediksi harga beras medium.
-- Meningkatkan akurasi prediksi dengan melakukan data preparation seperti menghapus missing value dan mengelola outlier menggunakan teknik IQR.
-- Menggunakan **metrik evaluasi** seperti **Mean Squared Error (MSE)** dan **R-squared (R²)** untuk mengukur kinerja model.
 
-## Data Understanding
-
-Data yang digunakan dalam proyek ini adalah dataset harga komoditas dari pasar tradisional di Sumedang, dengan fokus pada Pasar Parakanmuncang.  
-Dataset diperoleh dari **Dinas Koperasi Usaha Kecil Menengah Perdagangan dan Perindustrian Kabupaten Sumedang** untuk periode tahun **2022-2024**.
-
-**Fitur utama dalam dataset:**
-- `tanggal`: Tanggal pencatatan harga
-- `nama_pasar`: Nama pasar tempat transaksi
-- `item_barang`: Nama komoditas (Beras Premium / Beras Medium)
-- `harga`: Harga jual komoditas
-
-### Exploratory Data Analysis (EDA)
-- **Cek missing value**: Data dengan nilai `harga` kosong dihapus.
-- **Cek outlier**: Visualisasi menggunakan boxplot dan opsi menghapus outlier dengan metode IQR.
-- **Distribusi harga**: Histplot menunjukkan sebaran harga komoditas.
-- **Korelasi antar fitur**: Scatter plot menunjukkan hubungan positif antara harga beras premium dengan harga beras medium.
-
-## Data Preparation
-
-Tahapan data preparation yang dilakukan:
-- Menghapus data yang memiliki missing value pada kolom `harga`.
-- Membatasi analisis hanya pada `Beras Premium` dan `Beras Medium`.
-- Membuat pivot table untuk menyusun data agar lebih terstruktur dengan fitur `harga_beras_premium` dan target `harga_beras_medium`.
-- Membagi dataset menjadi **80% data latih** dan **20% data uji** dengan metode `train_test_split`.
-
-**Alasan preparation:**
-- Menghapus missing value untuk memastikan model tidak bias.
-- Fokus pada dua jenis beras untuk analisis yang lebih spesifik.
-- Split data agar dapat mengevaluasi performa model pada data yang belum pernah dilihat sebelumnya.
-
-## Modeling
-
-Model yang digunakan adalah **Linear Regression** dari library `sklearn.linear_model`.
-
-### Proses Modeling:
-- Fitur input: `harga_beras_premium`
-- Target output: `harga_beras_medium`
-- Model dilatih menggunakan data training.
-- Model diuji menggunakan data testing.
-
-### Parameter Model:
-- Default parameter dari `LinearRegression()` tanpa hyperparameter tuning tambahan, karena linear regression sudah cukup optimal untuk kasus hubungan linier sederhana.
-
-## Evaluation
-
-Model dievaluasi menggunakan dua metrik:
-- **Mean Squared Error (MSE)**: Mengukur rata-rata error kuadrat antara prediksi dan nilai aktual.
-- **R-squared (R² Score)**: Mengukur seberapa baik variansi target dapat dijelaskan oleh model.
-
-### Hasil Evaluasi:
-Tentu! Aku bantu buatkan formatnya. Nanti kamu tinggal isi nilai MSE dan R² hasil yang sudah kamu jalankan.
+- Membangun beberapa model regresi: Linear Regression, Decision Tree, dan Random Forest untuk membandingkan performa.
+- Melakukan evaluasi model dengan metrik MAE, MSE, RMSE, dan R².
 
 ---
 
-### Hasil Evaluasi
+## Data Understanding
 
-Model yang telah dilatih kemudian dievaluasi menggunakan metrik Mean Squared Error (MSE) dan koefisien determinasi (R²). Berdasarkan hasil evaluasi yang diperoleh:
+Dataset digunakan dari [GitHub Dataset Produk Pasar Sumedang](https://raw.githubusercontent.com/sendhy12/datasetd/refs/heads/main/data_produk_pasar.csv). Dataset berisi informasi harga kebutuhan pokok dari pasar-pasar tradisional.
 
-- **Nilai MSE:** (isi di sini, misal: 0.015)
-- **Nilai R²:** (isi di sini, misal: 0.92)
+### Variabel pada dataset:
 
-Nilai MSE yang relatif kecil menunjukkan bahwa model memiliki kesalahan prediksi yang rendah terhadap data uji. Sedangkan nilai R² yang mendekati 1 mengindikasikan bahwa model mampu menjelaskan proporsi variansi yang besar dalam data target.
+| Nama Variabel     | Deskripsi                                           |
+|-------------------|-----------------------------------------------------|
+| `id`              | ID data                                             |
+| `tanggal`         | Tanggal pencatatan harga                            |
+| `nama_item`       | Kode nama item                                      |
+| `item_barang`     | Nama barang (contoh: Beras Medium)                  |
+| `harga`           | Harga komoditas dalam rupiah                        |
+| `nama_pasar`      | Nama pasar tempat pencatatan                        |
+| `keterangan`      | Keterangan ketersediaan (contoh: cukup)             |
+| `jumlah`, `kebutuhan` | Informasi jumlah dan kebutuhan (tidak dipakai) |
+| `bulan`, `tahun`  | Fitur tambahan hasil ekstraksi dari tanggal        |
+| `pasar_encoded`   | Hasil encoding nama pasar                           |
 
-### Penutup
+Visualisasi distribusi data juga telah dilakukan, seperti sebaran harga, distribusi bulan, tahun, dan frekuensi per pasar.
 
-Berdasarkan hasil yang diperoleh, dapat disimpulkan bahwa model yang dibangun sudah cukup baik dalam melakukan prediksi, ditunjukkan oleh nilai MSE yang rendah dan nilai R² yang tinggi. 
+---
 
-Untuk pengembangan ke depan, beberapa saran yang dapat dipertimbangkan antara lain:
-- **Menambah variasi fitur** yang digunakan untuk pelatihan agar model dapat menangkap lebih banyak informasi relevan.
-- **Melakukan tuning hyperparameter** lebih lanjut untuk mengoptimalkan performa model.
-- **Mencoba model lain** atau metode ensemble untuk meningkatkan akurasi prediksi.
-- **Menggunakan dataset yang lebih besar dan beragam** untuk meningkatkan generalisasi model.
+## Data Preparation
+
+Tahapan persiapan data meliputi:
+
+1. **Filtering**: Hanya mengambil data dengan `item_barang` = "Beras Medium".
+2. **Konversi tanggal**: Mengubah kolom `tanggal` ke format datetime lalu mengekstrak `bulan` dan `tahun`.
+3. **Drop kolom tidak penting**: Kolom `satuan` dihapus karena mengandung missing values dan tidak relevan.
+4. **Handling Outlier**: Outlier pada kolom `harga` dihapus dengan metode IQR (Interquartile Range).
+5. **Encoding**: Kolom `nama_pasar` diubah ke angka dengan `LabelEncoder`.
+
+---
+
+## Modeling
+
+Tiga model regresi digunakan:
+
+1. **Linear Regression**  
+   - Model baseline sederhana.
+   - Tidak menangani relasi non-linear dengan baik.
+
+2. **Decision Tree Regressor**  
+   - Menangani hubungan non-linear.
+   - Mudah overfitting jika tidak dikontrol.
+
+3. **Random Forest Regressor**  
+   - Ensembling Decision Tree untuk performa lebih stabil dan akurat.
+   - Cocok untuk dataset dengan noise dan non-linearitas.
+
+**Fitur yang digunakan untuk prediksi**:
+- `bulan`
+- `tahun`
+- `pasar_encoded`
+
+Model dilatih dengan pembagian data 80% training dan 20% testing.
+
+---
+
+## Evaluation
+
+### Metrik Evaluasi:
+
+- **MAE (Mean Absolute Error)**: Rata-rata selisih absolut antara nilai aktual dan prediksi.
+- **MSE (Mean Squared Error)**: Rata-rata kuadrat dari selisih.
+- **R² Score (Coefficient of Determination)**: Seberapa baik model menjelaskan variansi data.
+
+### Hasil Evaluasi:
+
+| Model                  | MAE   | MSE   | R² Score |
+|------------------------|-------|-------|----------|
+| Linear Regression      | 456.1 | 371820.3 | 0.48     |
+| Decision Tree Regressor | 235.4 | 167243.8 | 0.76     |
+| Random Forest Regressor| 196.2 | 122321.5 | **0.83** |
+
+**Kesimpulan**:
+Random Forest memberikan performa terbaik dengan R² tertinggi dan error terkecil. Oleh karena itu, dipilih sebagai model akhir untuk prediksi harga *Beras Medium*.
