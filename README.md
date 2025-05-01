@@ -214,35 +214,26 @@ Model terbaik dipilih berdasarkan performa pada metrik evaluasi, seperti dijelas
 
 ### 5.1 Metrik Evaluasi
 
+### 5.1 Metrik Evaluasi
+
 Model dievaluasi menggunakan empat metrik utama regresi berikut:
 
 - **MAE (Mean Absolute Error)**  
-  MAE mengukur rata-rata dari selisih absolut antara nilai aktual dan nilai prediksi. Semakin kecil nilai MAE, semakin akurat model.
-
-  \[
-  MAE = \frac{1}{n} \sum_{i=1}^{n} |y_i - \hat{y}_i|
-  \]
+  Mengukur rata-rata selisih absolut antara nilai aktual dan prediksi. Semakin kecil, semakin baik.  
+  Rumus: MAE = (1/n) * Σ |yi - ŷi|
 
 - **MSE (Mean Squared Error)**  
-  MSE mengukur rata-rata dari kuadrat selisih antara nilai aktual dan prediksi. Metrik ini memberikan penalti yang lebih besar terhadap error yang besar.
-
-  \[
-  MSE = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2
-  \]
+  Mengukur rata-rata selisih kuadrat antara nilai aktual dan prediksi. Lebih sensitif terhadap error besar.  
+  Rumus: MSE = (1/n) * Σ (yi - ŷi)²
 
 - **RMSE (Root Mean Squared Error)**  
-  RMSE adalah akar dari MSE. RMSE berguna karena satuannya sama dengan target aslinya (harga), sehingga lebih mudah diinterpretasikan.
-
-  \[
-  RMSE = \sqrt{MSE}
-  \]
+  Akar dari MSE. Menghasilkan nilai dengan satuan yang sama seperti target (harga).  
+  Rumus: RMSE = √MSE
 
 - **R² Score (Koefisien Determinasi)**  
-  R² mengukur proporsi variasi dari variabel target yang dapat dijelaskan oleh fitur. Nilai R² berkisar antara 0 hingga 1. Semakin mendekati 1, semakin baik performa model.
+  Mengukur seberapa besar variabilitas target yang dapat dijelaskan oleh model. Nilainya antara 0 dan 1.  
+  Rumus: R² = 1 - (Σ (yi - ŷi)² / Σ (yi - ȳ)²)
 
-  \[
-  R^2 = 1 - \frac{\sum (y_i - \hat{y}_i)^2}{\sum (y_i - \bar{y})^2}
-  \]
 
 ### Hasil Evaluasi
 
@@ -250,10 +241,10 @@ Berikut adalah hasil evaluasi dari ketiga model:
 
 | Model              | MAE        | MSE         | RMSE       | R²       |
 |-------------------|------------|-------------|------------|----------|
-| Linear Regression | 624.22     | 630,262.50  | 793.89     | 0.7024   |
-| Decision Tree     | 257.02     | 168,816.39  | 410.87     | 0.9203   |
-| Random Forest     | **153.14** | **88,601.36** | **297.66** | **0.9582** |
+| Linear Regression | 624.223860     | 630262.504249  | 793.890738     | 0.702371   |
+| Decision Tree     | 257.024631     | 168816.392204  | 410.872720     | 0.920280   |
+| Random Forest     | **152.400377** | **89048.070888** | **298.409234** | **0.957949** |
 
 ### Analisis
 
-Model **Random Forest Regressor** menunjukkan performa terbaik di semua metrik, dengan R² sebesar 0.958 yang berarti mampu menjelaskan 95.8% variasi harga. MAE dan RMSE yang rendah menunjukkan prediksi yang konsisten dan akurat. Oleh karena itu, **Random Forest dipilih sebagai model akhir**.
+Model **Random Forest Regressor** menunjukkan performa terbaik di semua metrik, dengan R² sebesar 0.957949 yang berarti mampu menjelaskan 95.8% variasi harga. MAE dan RMSE yang rendah menunjukkan prediksi yang konsisten dan akurat. Oleh karena itu, **Random Forest dipilih sebagai model akhir**.
