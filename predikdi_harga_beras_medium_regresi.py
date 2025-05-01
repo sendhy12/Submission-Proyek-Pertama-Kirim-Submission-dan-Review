@@ -203,11 +203,23 @@ plt.show()
 
 Analisis ini dilakukan untuk memahami hubungan antar fitur terhadap harga.
 
-**Harga vs Bulan:**
+**Harga vs Tahun:**
 """
 
-sns.boxplot(x='bulan', y='harga', data=df)
-plt.title("Harga Beras Medium per Bulan")
+plt.figure(figsize=(10, 6))
+sns.set(style="whitegrid")
+
+sns.lineplot(x='tahun', y='harga', data=df, marker='o', linewidth=2.5, color='royalblue')
+plt.title("Tren Harga Beras Medium per Tahun", fontsize=16, fontweight='bold')
+plt.xlabel("Tahun", fontsize=12)
+plt.ylabel("Harga (Rp)", fontsize=12)
+plt.xticks(fontsize=10)
+plt.yticks(fontsize=10)
+plt.tight_layout()
+plt.show()
+
+sns.boxplot(x='tahun', y='harga', data=df)
+plt.title("Harga Beras Medium per Tahun")
 plt.show()
 
 """**Harga vs Nama Pasar:**"""
