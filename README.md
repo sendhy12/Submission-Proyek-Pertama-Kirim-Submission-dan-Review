@@ -52,26 +52,38 @@ Bagian ini menjelaskan proses klarifikasi masalah dalam proyek prediksi harga be
 
 ---
 
-## Data Understanding
+## **Data Understanding**
 
-Dataset digunakan dari [GitHub Dataset Produk Pasar Sumedang](https://raw.githubusercontent.com/sendhy12/datasetd/refs/heads/main/data_produk_pasar.csv). Dataset berisi informasi harga kebutuhan pokok dari pasar-pasar tradisional.
+Dataset yang digunakan dalam proyek ini bersumber langsung dari **Dinas Koperasi Usaha Kecil Menengah Perdagangan dan Perindustrian (DiskopUKMPP) Kabupaten Sumedang**, yang merupakan data internal dan relevan dengan konteks lokal untuk kebutuhan skripsi. Dataset tersebut telah disimpan dan dibagikan melalui repositori GitHub agar mudah diakses dan dikelola:  
+🔗 [Link Dataset – GitHub](https://raw.githubusercontent.com/sendhy12/datasetd/refs/heads/main/data_produk_pasar.csv)
 
-### Variabel pada dataset:
+Dataset ini berisi **7.630 baris dan 12 kolom**, dengan periode data mencakup **tahun 2022 hingga 2024**. Proyek ini berfokus pada prediksi harga **Beras Medium** berdasarkan data historis pasar lokal.
 
-| Nama Variabel     | Deskripsi                                           |
-|-------------------|-----------------------------------------------------|
-| `id`              | ID data                                             |
-| `tanggal`         | Tanggal pencatatan harga                            |
-| `nama_item`       | Kode nama item                                      |
-| `item_barang`     | Nama barang (contoh: Beras Medium)                  |
-| `harga`           | Harga komoditas dalam rupiah                        |
-| `nama_pasar`      | Nama pasar tempat pencatatan                        |
-| `keterangan`      | Keterangan ketersediaan (contoh: cukup)             |
-| `jumlah`, `kebutuhan` | Informasi jumlah dan kebutuhan (tidak dipakai) |
-| `bulan`, `tahun`  | Fitur tambahan hasil ekstraksi dari tanggal        |
-| `pasar_encoded`   | Hasil encoding nama pasar                           |
+---
 
-Visualisasi distribusi data juga telah dilakukan, seperti sebaran harga, distribusi bulan, tahun, dan frekuensi per pasar.
+### **Fitur yang Digunakan**
+
+Fitur-fitur utama yang digunakan dalam proyek ini meliputi:
+
+- `tanggal`: Tanggal pencatatan harga, berformat `datetime`. Fitur ini akan diekstrak menjadi dua kolom turunan: `tahun` dan `bulan`.
+- `nama_pasar`: Nama pasar tempat data harga dikumpulkan, berformat `object` (kategori).
+- `harga`: Harga beras medium per kilogram, berformat `integer`. Ini merupakan **target (label)** yang akan diprediksi dalam model.
+
+Catatan:  
+Fitur lain seperti `satuan` memiliki missing value dan tidak relevan terhadap kebutuhan analisis, sehingga dihapus dari dataset.
+
+---
+
+### **Eksplorasi Awal & Visualisasi**
+
+Beberapa langkah eksplorasi data telah dilakukan untuk memahami karakteristik dataset, antara lain:
+
+- **Distribusi Harga Beras Medium:** Untuk mengetahui sebaran harga dan mendeteksi outlier.
+- **Frekuensi Nama Pasar:** Untuk mengetahui jumlah observasi per pasar dan kontribusinya terhadap total data.
+- **Distribusi Waktu (Tahun & Bulan):** Untuk mengecek kelengkapan data per periode dan potensi pola musiman.
+- **Harga vs Bulan:** Untuk mengamati tren harga berdasarkan waktu.
+- **Harga vs Nama Pasar:** Untuk melihat variasi harga antar pasar.
+- **Korelasi antar Fitur Numerik:** Untuk mengidentifikasi hubungan antara waktu dan harga serta mengevaluasi potensi fitur prediktif lainnya.
 
 ---
 
