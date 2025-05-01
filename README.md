@@ -54,6 +54,15 @@ Bagian ini menjelaskan proses klarifikasi masalah dalam proyek prediksi harga be
 
 ## **Data Understanding**
 
+| id     | satuan | pasar | tanggal    | nama_item | keterangan | harga | jumlah | kebutuhan | item_barang           | satuan_item | nama_pasar           |
+|--------|--------|--------|------------|------------|-------------|--------|---------|-------------|------------------------|--------------|------------------------|
+| 26766 |        | 7      | 2022-01-01 | 1          | cukup       | 12000 | 0       | 0           | Beras Premium         | kg           | Pasar Parakanmuncang |
+| 26767 |        | 7      | 2022-01-01 | 2          | cukup       | 11500 | 0       | 0           | Beras Medium          | kg           | Pasar Parakanmuncang |
+| 26768 |        | 7      | 2022-01-01 | 3          | cukup       | 12000 | 0       | 0           | Beras Termahal        | kg           | Pasar Parakanmuncang |
+| 26769 |        | 7      | 2022-01-01 | 4          | cukup       | 14000 | 0       | 0           | Gula Pasir            | kg           | Pasar Parakanmuncang |
+| 26770 |        | 7      | 2022-01-01 | 8          | cukup       | 3000  | 0       | 0           | Minyak Goreng Bimoli  | liter        | Pasar Parakanmuncang |
+
+
 Dataset yang digunakan dalam proyek ini bersumber langsung dari **Dinas Koperasi Usaha Kecil Menengah Perdagangan dan Perindustrian Kabupaten Sumedang** dan dapat diakses melalui [GitHub Repository](https://raw.githubusercontent.com/sendhy12/datasetd/refs/heads/main/data_produk_pasar.csv). Dataset ini berfokus pada harga produk beras di pasar-pasar rakyat Sumedang dan memiliki 7630 entri serta 12 kolom. Data ini mencakup periode dari tahun 2022 hingga 2024.
 
 ### **Struktur Dataset**
