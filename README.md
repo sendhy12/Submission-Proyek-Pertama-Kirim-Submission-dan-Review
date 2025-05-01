@@ -1,35 +1,54 @@
 # Laporan Proyek Machine Learning - Sendhy Maula Ammarulloh
 
-## Domain Proyek
+## **Domain Proyek**
 
-Sektor pangan merupakan sektor yang sangat krusial dalam menjaga kestabilan ekonomi dan sosial, terutama di daerah yang sangat bergantung pada bahan pokok seperti beras. Di Kabupaten Sumedang, Dinas Koperasi, UKM, Perdagangan, dan Perindustrian secara rutin mengumpulkan data harga kebutuhan pokok di pasar-pasar tradisional.
+Beras merupakan kebutuhan pokok yang tidak tergantikan bagi mayoritas masyarakat Indonesia. Fluktuasi harga beras sangat memengaruhi stabilitas ekonomi rumah tangga, terutama di kalangan masyarakat menengah ke bawah. Fenomena kenaikan harga beras yang terjadi di Pasar Rakyat Sumedang, sebagaimana dilaporkan oleh Pemerintah Kabupaten Sumedang, menunjukkan adanya lonjakan harga yang cukup signifikan dalam waktu singkat. Harga beras kelas 1 misalnya, naik dari Rp 16.000 menjadi Rp 17.000 per kilogram hanya dalam kurun waktu satu minggu [1]. Faktor penyebab utamanya adalah kelangkaan gabah yang berdampak langsung pada rantai pasokan beras di pasar.
 
-Namun, fluktuasi harga Beras Medium yang sering terjadi menyebabkan ketidakpastian bagi konsumen dan pelaku usaha. Oleh karena itu, penting untuk membangun sistem prediksi harga berbasis Machine Learning yang dapat membantu pemerintah daerah dan pelaku pasar dalam merencanakan kebijakan dan strategi distribusi.
+Secara nasional, tren harga beras memang menunjukkan peningkatan sejak Agustus 2022 hingga awal tahun 2024, berdasarkan laporan Sistem Pemantauan Pasar dan Kebutuhan Pokok (SP2KP) Kementerian Perdagangan. Hal ini terjadi meskipun produksi beras secara global mengalami peningkatan, bahkan mencetak rekor tertinggi 520,8 juta ton pada periode 2021–2022 menurut Food and Agriculture Organization (FAO). Fakta ini menunjukkan bahwa kenaikan harga bukan semata karena pasokan global, melainkan juga dipengaruhi oleh faktor domestik seperti distribusi, cuaca, dan kondisi pertanian lokal [2].
 
-Prediksi harga ini didasarkan pada data historis yang mencakup tanggal, lokasi pasar, dan harga komoditas. Teknologi Machine Learning, terutama regresi, digunakan untuk membangun model prediktif yang andal.
+Perubahan harga beras yang terjadi secara dinamis ini berpotensi memberikan dampak signifikan terhadap inflasi dan kesejahteraan masyarakat. Oleh karena itu, diperlukan pendekatan analisis data yang mampu memprediksi harga beras secara akurat dan tepat waktu. Salah satu metode yang sudah terbukti dapat digunakan untuk tujuan ini adalah **Regresi Linear**, sebagaimana diterapkan dalam penelitian sebelumnya oleh Veri Arinal & Muhammad Azhari (2023), yang berhasil memprediksi harga beras dengan tingkat kesalahan (RMSE) sebesar 109.062 menggunakan data dari tahun 2021–2023.
 
-**Referensi:**
-- BPS Sumedang. “Harga Rata-Rata Beberapa Komoditas.” [Online]. Available: https://sumedangkab.bps.go.id
-- O. Ismail et al., “Time Series Forecasting of Rice Prices Using Machine Learning Techniques,” *International Journal of Advanced Computer Science*, 2020.
+Dengan adanya sistem prediksi harga beras berbasis regresi, baik pemerintah daerah maupun pelaku pasar dapat merencanakan kebijakan atau strategi penanggulangan lebih dini. Solusi ini juga berpotensi meningkatkan efisiensi distribusi dan mencegah kelangkaan akibat panic buying.
 
 ---
 
-## Business Understanding
+### **Referensi**
+- E. D. Kusnaedi, "Harga Beras di Pasar Rakyat Sumedang Terus Melejit," *sumedangkab.go.id*, Feb. 15, 2024. [Online]. Available: https://sumedangkab.go.id/berita/detail/harga-beras-di-pasar-rakyat-sumedang-terus-melejit
+- V. Arinal and M. Azhari, "Penerapan Regresi Linear Untuk Prediksi Harga Beras Di Indonesia," *Jurnal Sains dan Teknologi*, vol. 5, no. 1, pp. 341–346, 2023.
 
-### Problem Statements
+---
 
-- Bagaimana memprediksi harga *Beras Medium* berdasarkan informasi pasar dan waktu (bulan, tahun)?
-- Bagaimana membangun model Machine Learning yang akurat untuk membantu prediksi harga komoditas tersebut?
+## **Business Understanding**
 
-### Goals
+Bagian ini menjelaskan proses klarifikasi masalah dalam proyek prediksi harga beras, yang berfokus pada analisis data historis harga beras di Kabupaten Sumedang dan pengembangan model prediksi untuk mendukung pengambilan keputusan.
 
-- Membuat model prediktif berbasis regresi untuk memprediksi harga *Beras Medium*.
-- Mengidentifikasi fitur-fitur yang relevan dan melakukan visualisasi serta pembersihan data.
+---
 
-### Solution Statements
+### **Problem Statements**
 
-- Membangun beberapa model regresi: Linear Regression, Decision Tree, dan Random Forest untuk membandingkan performa.
-- Melakukan evaluasi model dengan metrik MAE, MSE, RMSE, dan R².
+1. Harga beras di pasar rakyat Sumedang mengalami fluktuasi yang cukup signifikan dan seringkali tidak terduga, sehingga menyulitkan masyarakat dan pelaku pasar dalam merencanakan pembelian atau penjualan.
+
+2. Belum tersedia sistem berbasis data yang dapat memprediksi harga beras secara akurat dalam jangka pendek, khususnya untuk wilayah Sumedang, sehingga pengambilan keputusan masih bersifat reaktif.
+
+---
+
+### **Goals**
+
+1. Mengidentifikasi dan menganalisis tren harga beras di Kabupaten Sumedang dari data historis untuk memahami pola fluktuasinya.
+
+2. Membangun model prediksi harga beras berbasis regresi untuk memperkirakan harga dalam jangka pendek dengan akurasi yang dapat diukur, guna mendukung pengambilan keputusan yang lebih proaktif.
+
+---
+
+### **Solution Statements**
+
+1. Mengimplementasikan **Regresi Linear** sebagai baseline model untuk memprediksi harga beras menggunakan data historis lokal. Evaluasi akurasi dilakukan menggunakan beberapa metrik evaluasi regresi, yaitu:
+   - **Root Mean Squared Error (RMSE)** untuk mengukur rata-rata kesalahan prediksi dalam satuan yang sama dengan data asli,
+   - **Mean Absolute Error (MAE)** untuk mengetahui rata-rata besar kesalahan absolut dari prediksi,
+   - **Mean Squared Error (MSE)** untuk mengukur rata-rata kuadrat dari kesalahan prediksi, dan
+   - **R-squared (R²)** untuk menilai seberapa baik model menjelaskan variasi harga beras dari data historis.
+
+2. Membandingkan hasil Regresi Linear dengan model lain seperti **Decision Tree Regressor** dan **Random Forest Regressor** untuk mengetahui model dengan performa terbaik dalam konteks data harga beras di Kabupaten Sumedang.
 
 ---
 
