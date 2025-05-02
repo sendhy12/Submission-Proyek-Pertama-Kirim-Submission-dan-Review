@@ -101,7 +101,7 @@ Beberapa visualisasi yang telah dilakukan untuk memahami distribusi data adalah 
 - **Distribusi Harga Beras Medium**: Menganalisis harga beras Medium di seluruh pasar.
 - **Frekuensi Nama Pasar**: Menampilkan jumlah data yang tercatat untuk setiap pasar.
 - **Distribusi Waktu (Tahun & Bulan)**: Memahami pola fluktuasi harga berdasarkan waktu.
-- **Harga vs Bulan**: Menggambarkan bagaimana harga beras berubah sepanjang bulan.
+- **Harga vs Tahun**: Menggambarkan bagaimana harga beras berubah sepanjang tahun.
 - **Harga vs Nama Pasar**: Memahami variasi harga beras di setiap pasar.
 - **Korelasi Antar Fitur Numerik**: Menilai hubungan antara harga, bulan, tahun, dan pasar.
 
@@ -221,9 +221,7 @@ Model terbaik dipilih berdasarkan performa pada metrik evaluasi, seperti dijelas
 
 ## Evaluation
 
-### 5.1 Metrik Evaluasi
-
-### 5.1 Metrik Evaluasi
+### Metrik Evaluasi
 
 Model dievaluasi menggunakan empat metrik utama regresi berikut:
 
