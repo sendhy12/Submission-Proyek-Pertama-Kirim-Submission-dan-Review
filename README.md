@@ -219,39 +219,92 @@ Model terbaik dipilih berdasarkan performa pada metrik evaluasi, seperti dijelas
 
 ---
 
-## Evaluation
+## **Evaluation (Evaluasi Model)**
 
-### Metrik Evaluasi
+### **1. Metrik Evaluasi dan Penjelasannya**
 
-Model dievaluasi menggunakan empat metrik utama regresi berikut:
+Untuk mengukur kinerja model prediksi harga beras, digunakan empat metrik evaluasi regresi yang relevan dengan konteks prediksi nilai numerik (harga), yaitu:
 
-- **MAE (Mean Absolute Error)**  
-  Mengukur rata-rata selisih absolut antara nilai aktual dan prediksi. Semakin kecil, semakin baik.  
-  Rumus: MAE = (1/n) * Σ |yi - ŷi|
+* **Mean Absolute Error (MAE)**
+  MAE mengukur rata-rata selisih absolut antara nilai aktual dan nilai yang diprediksi.
+  **Rumus:**
 
-- **MSE (Mean Squared Error)**  
-  Mengukur rata-rata selisih kuadrat antara nilai aktual dan prediksi. Lebih sensitif terhadap error besar.  
-  Rumus: MSE = (1/n) * Σ (yi - ŷi)²
+      MAE = (1/n) * Σ |yᵢ - ŷᵢ|
 
-- **RMSE (Root Mean Squared Error)**  
-  Akar dari MSE. Menghasilkan nilai dengan satuan yang sama seperti target (harga).  
-  Rumus: RMSE = √MSE
+  MAE memberikan gambaran langsung mengenai besarnya kesalahan dalam satuan harga (Rupiah). Metrik ini sangat cocok dalam konteks bisnis karena interpretasinya yang intuitif (rata-rata seberapa meleset prediksi dari kenyataan).
 
-- **R² Score (Koefisien Determinasi)**  
-  Mengukur seberapa besar variabilitas target yang dapat dijelaskan oleh model. Nilainya antara 0 dan 1.  
-  Rumus: R² = 1 - (Σ (yi - ŷi)² / Σ (yi - ȳ)²)
+* **Mean Squared Error (MSE)**
+  MSE menghitung rata-rata dari kuadrat selisih antara nilai aktual dan prediksi.
+  **Rumus:**
 
+      MSE = (1/n) * Σ (yᵢ - ŷᵢ)²
 
-### Hasil Evaluasi
+  MSE menekankan kesalahan besar, sehingga berguna untuk menghindari model dengan prediksi ekstrem.
 
-Berikut adalah hasil evaluasi dari ketiga model:
+* **Root Mean Squared Error (RMSE)**
+  RMSE adalah akar kuadrat dari MSE, yang menjadikannya berada dalam satuan yang sama dengan target.
+  **Rumus:**
 
-| Model              | MAE        | MSE         | RMSE       | R²       |
-|-------------------|------------|-------------|------------|----------|
-| Linear Regression | 624.223860     | 630262.504249  | 793.890738     | 0.702371   |
-| Decision Tree     | 257.024631     | 168816.392204  | 410.872720     | 0.920280   |
-| Random Forest     | **152.400377** | **89048.070888** | **298.409234** | **0.957949** |
+      RMSE = √MSE
 
-### Analisis
+  Dalam konteks ini, RMSE menunjukkan secara langsung seberapa jauh, dalam satuan rupiah, prediksi menyimpang dari nilai aktual.
 
-Model **Random Forest Regressor** menunjukkan performa terbaik di semua metrik, dengan R² sebesar 0.957949 yang berarti mampu menjelaskan 95.8% variasi harga. MAE dan RMSE yang rendah menunjukkan prediksi yang konsisten dan akurat. Oleh karena itu, **Random Forest dipilih sebagai model akhir**.
+* **R-squared (R² Score)**
+  R² mengukur proporsi variabilitas dalam target yang bisa dijelaskan oleh model.
+  **Rumus:**
+
+      R² = 1 - (Σ (yᵢ - ŷᵢ)² / Σ (yᵢ - ȳ)²)
+
+  Nilai R² mendekati 1 menandakan bahwa model menjelaskan hampir seluruh variasi dalam data, yang sangat penting untuk prediksi harga yang akurat.
+
+---
+
+### **2. Hasil Evaluasi Model**
+
+Berikut adalah perbandingan hasil ketiga model:
+
+| Model             | MAE        | MSE           | RMSE       | R²         |
+| ----------------- | ---------- | ------------- | ---------- | ---------- |
+| Linear Regression | 624.22     | 630,262.50    | 793.89     | 0.7024     |
+| Decision Tree     | 257.02     | 168,816.39    | 410.87     | 0.9203     |
+| Random Forest     | **152.40** | **89,048.07** | **298.41** | **0.9579** |
+
+### **Analisis Hasil**
+
+* **Random Forest Regressor** menunjukkan performa terbaik di seluruh metrik:
+
+  * MAE hanya sekitar **Rp152**, yang artinya rata-rata kesalahan prediksi harga sangat kecil.
+  * RMSE di bawah **Rp300**, menunjukkan stabilitas model dalam meminimalisir kesalahan besar.
+  * R² sebesar **0.9579**, berarti hampir 96% variabilitas harga beras dapat dijelaskan oleh model ini.
+
+Model ini jauh lebih baik dibandingkan baseline **Linear Regression** yang hanya memiliki R² sebesar 0.70 dan MAE lebih dari Rp600. Bahkan dibandingkan dengan **Decision Tree**, Random Forest unggul di seluruh aspek.
+
+---
+
+### **3. Keterkaitan dengan Business Understanding**
+
+#### **Apakah sudah menjawab Problem Statements?**
+
+* **Problem 1:** Fluktuasi harga beras yang tidak terduga membuat perencanaan sulit.
+  ✅ *Model prediktif ini memungkinkan estimasi harga beras jangka pendek yang akurat, sehingga membantu pelaku pasar dan masyarakat merencanakan aktivitas jual beli.*
+
+* **Problem 2:** Tidak tersedianya sistem prediksi berbasis data untuk wilayah Sumedang.
+  ✅ *Dengan model Random Forest ini, tersedia sistem prediksi harga berbasis machine learning yang dirancang khusus berdasarkan data lokal Kabupaten Sumedang.*
+
+#### **Apakah sudah mencapai Goals?**
+
+* **Goal 1:** Mengidentifikasi tren harga beras.
+  ✅ *Melalui eksplorasi data dan visualisasi tren musiman (tahun, bulan), pola harga berhasil dianalisis.*
+
+* **Goal 2:** Membangun model prediksi harga beras jangka pendek.
+  ✅ *Random Forest Regressor terbukti akurat dalam memprediksi harga beras dengan MAE < Rp200 dan R² > 0.95.*
+
+#### **Apakah solusi yang dirancang berdampak?**
+
+* ✅ *Solusi menggunakan regresi linear sebagai baseline dan membandingkannya dengan model yang lebih kompleks telah terbukti berdampak signifikan. Model akhir (Random Forest) memberikan hasil terbaik, melebihi ekspektasi dari baseline, dan siap digunakan dalam pengambilan keputusan strategis.*
+
+---
+
+### **Kesimpulan Evaluasi**
+
+Model Random Forest Regressor memberikan hasil prediksi harga beras yang sangat akurat dan memenuhi seluruh aspek dari problem statement, goals, dan solusi proyek. Metrik evaluasi yang digunakan relevan dengan konteks bisnis (prediksi harga), dan hasil evaluasi menunjukkan bahwa proyek ini berhasil secara teknis maupun fungsional dalam mendukung stabilitas pasar beras di Kabupaten Sumedang.
