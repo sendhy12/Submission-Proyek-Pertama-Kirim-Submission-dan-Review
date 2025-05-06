@@ -96,14 +96,30 @@ Dua variabel yang dianggap paling penting untuk memprediksi harga beras Medium a
 - **tanggal**: Tanggal pencatatan harga yang memungkinkan adanya tren musiman atau pola berdasarkan waktu.
 - **nama_pasar**: Nama pasar yang dapat memberikan wawasan tentang fluktuasi harga berdasarkan lokasi pasar.
 
-### **Eksplorasi Data dan Visualisasi**
-Beberapa visualisasi yang telah dilakukan untuk memahami distribusi data adalah sebagai berikut:
-- **Distribusi Harga Beras Medium**: Menganalisis harga beras Medium di seluruh pasar.
-- **Frekuensi Nama Pasar**: Menampilkan jumlah data yang tercatat untuk setiap pasar.
-- **Distribusi Waktu (Tahun & Bulan)**: Memahami pola fluktuasi harga berdasarkan waktu.
-- **Harga vs Tahun**: Menggambarkan bagaimana harga beras berubah sepanjang tahun.
-- **Harga vs Nama Pasar**: Memahami variasi harga beras di setiap pasar.
-- **Korelasi Antar Fitur Numerik**: Menilai hubungan antara harga, bulan, tahun, dan pasar.
+### Eksplorasi Data dan Visualisasi
+
+Eksplorasi data dilakukan untuk memahami karakteristik dan pola dalam dataset harga beras medium di berbagai pasar. Beberapa visualisasi berikut memberikan insight penting yang membantu dalam proses analisis dan pemilihan fitur:
+
+* **Distribusi Harga Beras Medium:**
+  Visualisasi histogram menunjukkan sebaran harga beras medium. Terlihat bahwa sebagian besar harga berada pada rentang 10.000 sampai 13.000, menunjukkan bahwa harga cenderung terkonsentrasi di kisaran tersebut.
+
+* **Frekuensi Nama Pasar:**
+  Bar chart menunjukkan variasi jumlah data yang tersedia untuk masing-masing pasar. Teridentifikasi bahwa pasar seperti *Pasar Parakamuncang* memiliki jumlah observasi tertinggi, sementara beberapa pasar lainnya memiliki data yang relatif sedikit. Hal ini perlu dipertimbangkan untuk analisis lanjutan agar tidak bias terhadap pasar tertentu.
+
+* **Distribusi Waktu (Bulan dan Tahun):**
+  Visualisasi distribusi data berdasarkan bulan dan tahun menunjukkan bahwa data tidak tersebar merata sepanjang waktu. Beberapa bulan atau tahun memiliki jumlah data yang jauh lebih tinggi, misalnya *bulan Januari dan tahun 2022*, yang bisa memengaruhi hasil analisis tren.
+
+* **Tren Harga Beras per Tahun:**
+  Line plot memperlihatkan adanya *tren peningkatan harga* dari tahun ke tahun. Ini mengindikasikan adanya pola musiman atau faktor eksternal yang memengaruhi harga beras dalam jangka panjang.
+
+* **Harga Berdasarkan Tahun (Boxplot):**
+  Boxplot harga berdasarkan tahun mengungkapkan fluktuasi dan persebaran harga dalam tiap tahun. Dapat diamati adanya *peningkatan median harga* di tahun-tahun tertentu yang mencerminkan ketidakstabilan harga.
+
+* **Harga Berdasarkan Pasar:**
+  Visualisasi boxplot antar pasar menunjukkan variasi harga antar lokasi. Beberapa pasar memiliki harga yang secara konsisten lebih tinggi atau lebih rendah dibandingkan lainnya, mengindikasikan kemungkinan perbedaan biaya distribusi, kualitas beras, atau kekuatan pasar lokal.
+
+* **Korelasi Antar Fitur Numerik:**
+  Matriks korelasi menunjukkan hubungan antar variabel numerik seperti harga, bulan, tahun, dan pasar (yang telah diubah menjadi numerik). Terdapat korelasi yang signifikan antara *harga dan tahun*, yang menunjukkan bahwa faktor waktu memiliki pengaruh terhadap perubahan harga beras.
 
 ---
 
@@ -147,7 +163,19 @@ Pada tahap ini, beberapa langkah penting dalam mempersiapkan data untuk pemodela
   y = df['harga']
   ```
 
-### **4. Normalisasi Data**
+### **4. Pembagian Data**
+- **Split Data:** Data dibagi menjadi data latih (training) dan data uji (testing) dengan perbandingan 80:20 menggunakan fungsi `train_test_split`. Data latih digunakan untuk melatih model, sementara data uji digunakan untuk menguji akurasi model setelah pelatihan.
+
+  ```python
+  X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+  ```
+
+  Hasil pembagian data (setelah penghapusan outlier):
+  - **Total datasets:** 7627
+  - **Data Latih (Training):** ~80% dari total (6101)
+  - **Data Uji (Testing):** ~20% dari total (1526)
+
+### **5. Normalisasi Data**
 - **Normalisasi untuk Regresi Linear:** Karena model regresi linear sensitif terhadap skala data, fitur input dinormalisasi menggunakan **MinMaxScaler** untuk mengubah nilai fitur menjadi rentang [0, 1]. Proses normalisasi ini dilakukan pada data latih (training) dan data uji (testing).
 
   ```python
@@ -156,21 +184,6 @@ Pada tahap ini, beberapa langkah penting dalam mempersiapkan data untuk pemodela
   X_train_scaled = scaler.transform(X_train)
   X_test_scaled = scaler.transform(X_test)
   ```
-
-### **5. Pembagian Data**
-- **Split Data:** Data dibagi menjadi data latih (training) dan data uji (testing) dengan perbandingan 80:20 menggunakan fungsi `train_test_split`. Data latih digunakan untuk melatih model, sementara data uji digunakan untuk menguji akurasi model setelah pelatihan.
-
-  ```python
-  X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-  ```
-
-  Hasil pembagian data (setelah penghapusan outlier):
-  - **Total datasets:** (tergantung jumlah data tersisa setelah outlier dihapus)
-  - **Data Latih (Training):** ~80% dari total
-  - **Data Uji (Testing):** ~20% dari total
-
-### **6. Visualisasi dan Analisis Awal**
-- Visualisasi dan eksplorasi data telah dilakukan pada bagian **Data Understanding**, untuk memahami distribusi harga, hubungan antar fitur, dan pola waktu yang relevan. Visualisasi ini membantu dalam pengambilan keputusan terkait pemilihan fitur dan pemahaman tentang data.
 
 ---
 
