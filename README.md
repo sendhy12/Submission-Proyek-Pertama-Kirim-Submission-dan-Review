@@ -127,10 +127,28 @@ Eksplorasi data dilakukan untuk memahami karakteristik dan pola dalam dataset ha
 
 Pada tahap ini, beberapa langkah penting dalam mempersiapkan data untuk pemodelan dilakukan agar data siap digunakan oleh algoritma pembelajaran mesin. Berikut adalah langkah-langkah yang diambil dalam proses persiapan data:
 
-### **1. Pembersihan Data**
-- **Menghapus Kolom yang Tidak Terpakai:** Kolom **`satuan`** memiliki banyak nilai yang hilang (missing values) dan tidak berkontribusi terhadap analisis atau prediksi harga beras. Oleh karena itu, kolom ini dihapus dari dataset.
-  
-- **Menghapus Outlier pada Kolom Harga:** Untuk memastikan bahwa model tidak terpengaruh oleh nilai ekstrem yang tidak wajar, dilakukan proses deteksi dan penghapusan outlier pada kolom **`harga`** menggunakan metode **Interquartile Range (IQR)**. Data yang berada di luar rentang [Q1 - 1.5 * IQR, Q3 + 1.5 * IQR] dianggap sebagai outlier dan dihapus.
+### **1. Filter Hanya Beras Medium**
+
+* Dataset awal mengandung berbagai jenis komoditas beras. Namun, untuk fokus pada analisis yang lebih spesifik dan konsisten, hanya data dengan jenis **`Beras Medium`** yang digunakan. Ini dilakukan dengan memfilter kolom **`item_barang`**.
+
+  ```python
+  df = df[df['item_barang'] == 'Beras Medium']
+  ```
+
+### **2. Konversi Kolom Tanggal**
+- Kolom **`tanggal`** yang awalnya berformat string diubah menjadi format **`datetime`** menggunakan fungsi `pd.to_datetime()`. Setelah itu, elemen waktu diekstrak menjadi dua kolom baru, yaitu **`tahun`** dan **`bulan`**, untuk mempermudah analisis musiman atau tren tahunan.
+
+  ```python
+  df['tanggal'] = pd.to_datetime(df['tanggal'])
+  df['tahun'] = df['tanggal'].dt.year
+  df['bulan'] = df['tanggal'].dt.month
+  ```
+
+### **3. Menghapus Kolom yang Tidak Terpakai**
+- Kolom **`satuan`** memiliki banyak nilai yang hilang (missing values) dan tidak berkontribusi terhadap analisis atau prediksi harga beras. Oleh karena itu, kolom ini dihapus dari dataset.
+
+### **4. Menghapus Outlier pada Kolom Harga**
+- Untuk memastikan bahwa model tidak terpengaruh oleh nilai ekstrem yang tidak wajar, dilakukan proses deteksi dan penghapusan outlier pada kolom **`harga`** menggunakan metode **Interquartile Range (IQR)**. Data yang berada di luar rentang [Q1 - 1.5 * IQR, Q3 + 1.5 * IQR] dianggap sebagai outlier dan dihapus.
 
   ```python
   Q1 = df['harga'].quantile(0.25)
@@ -139,23 +157,15 @@ Pada tahap ini, beberapa langkah penting dalam mempersiapkan data untuk pemodela
   df = df[~((df['harga'] < (Q1 - 1.5 * IQR)) | (df['harga'] > (Q3 + 1.5 * IQR)))]
   ```
 
-### **2. Transformasi Data**
-- **Konversi Kolom Tanggal:** Kolom **`tanggal`** yang awalnya berformat string diubah menjadi format **`datetime`** menggunakan fungsi `pd.to_datetime()`. Setelah itu, elemen waktu diekstrak menjadi dua kolom baru, yaitu **`tahun`** dan **`bulan`**, untuk mempermudah analisis musiman atau tren tahunan.
-
-  ```python
-  df['tanggal'] = pd.to_datetime(df['tanggal'])
-  df['tahun'] = df['tanggal'].dt.year
-  df['bulan'] = df['tanggal'].dt.month
-  ```
-
-- **Pengkodean Variabel Kategorikal:** Kolom **`nama_pasar`** yang merupakan variabel kategorikal, dikodekan menggunakan **LabelEncoder**. Hal ini dilakukan untuk mengonversi nama pasar menjadi representasi numerik yang bisa diterima oleh model pembelajaran mesin.
+### **5. Pengkodean Variabel Kategorikal**
+- Kolom **`nama_pasar`** yang merupakan variabel kategorikal, dikodekan menggunakan **LabelEncoder**. Hal ini dilakukan untuk mengonversi nama pasar menjadi representasi numerik yang bisa diterima oleh model pembelajaran mesin.
 
   ```python
   le = LabelEncoder()
   df['pasar_encoded'] = le.fit_transform(df['nama_pasar'])
   ```
 
-### **3. Pemilihan Fitur**
+### **6. Pemilihan Fitur**
 - **Fitur untuk Model:** Dalam proses pemilihan fitur, kolom **`tahun`**, **`bulan`**, dan **`pasar_encoded`** dipilih sebagai fitur input (**X**) untuk memprediksi harga beras. Kolom **`harga`** dipilih sebagai target output (**y**).
 
   ```python
@@ -163,7 +173,7 @@ Pada tahap ini, beberapa langkah penting dalam mempersiapkan data untuk pemodela
   y = df['harga']
   ```
 
-### **4. Pembagian Data**
+### **7. Pembagian Data**
 - **Split Data:** Data dibagi menjadi data latih (training) dan data uji (testing) dengan perbandingan 80:20 menggunakan fungsi `train_test_split`. Data latih digunakan untuk melatih model, sementara data uji digunakan untuk menguji akurasi model setelah pelatihan.
 
   ```python
@@ -175,7 +185,7 @@ Pada tahap ini, beberapa langkah penting dalam mempersiapkan data untuk pemodela
   - **Data Latih (Training):** ~80% dari total (6101)
   - **Data Uji (Testing):** ~20% dari total (1526)
 
-### **5. Normalisasi Data**
+### **8. Normalisasi Data**
 - **Normalisasi untuk Regresi Linear:** Karena model regresi linear sensitif terhadap skala data, fitur input dinormalisasi menggunakan **MinMaxScaler** untuk mengubah nilai fitur menjadi rentang [0, 1]. Proses normalisasi ini dilakukan pada data latih (training) dan data uji (testing).
 
   ```python
